@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div th:fragment="confirmacion(texto)">
+  <!-- Modal -->
+    <div class="modal fade" id="confirmarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+          aria-labelledby="confirmarModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmarModalLabel">Confirmación de borrado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" th:text="${texto}">
+             Mensaje de confirmación 
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" id="ok" class="btn btn-danger">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div th:fragment="alerta">
+  <!-- Modal -->
+    <div class="modal fade" id="alertaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+         aria-labelledby="alertaModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="alertaModalLabel">Aviso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+                Texto de la alerta
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="entendido" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

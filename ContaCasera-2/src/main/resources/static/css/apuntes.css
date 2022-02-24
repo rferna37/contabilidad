@@ -1,0 +1,12 @@
+.container{
+	margin: auto;
+}
+
+.reducida {
+	font-size: small;
+}
+
+.error {
+	color: red;
+	background-color: white;
+}

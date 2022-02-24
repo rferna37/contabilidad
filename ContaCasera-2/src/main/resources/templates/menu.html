@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="menu">
+      <div class="container border ">
+    	<nav class="nav">
+  			<a class="nav-link active" aria-current="page" th:href="@{/apuntes}">Apuntes</a>
+  			<a class="nav-link" th:href="@{/conceptos}">Conceptos</a>
+  			<a class="nav-link" th:href="@{/cuentas}">Cuentas</a>
+		</nav>
+      </div>
+    </div>  
+  </body>  
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="concepto">
+      <fieldset>
+        <legend>Nuevo concepto</legend>
+        <div class="container border border-dark rounded p-2 mb-5 bg-light">
+	     <form id="altaConcepto" method="POST" th:action="@{/grabarConcepto}" th:object="${concepto}">
+            <div class="form-group row">
+              <div class="col-5">
+                <label class="col-form-label text-end">Código</label>
+		        <input type="text" id="codigo" class="form_control" th:field="*{codigo}" />
+		        <span class="validationError error text-danger d-block" th:if="${#fields.hasErrors('codigo')}" 
+					      th:errors="*{codigo}" >Codigo Error</span>
+		      </div>
+		      <div class="col-5">
+		        <label class="col-form-label text-end">Descripción</label>
+		        <input type="text" name="descripcion" class="form_control me-5" th:field="*{descripcion}" />
+		        <span class="validationError error text-danger d-block" th:if="${#fields.hasErrors('descripcion')}" 
+				  	      th:errors="*{descripcion}" >Error</span>
+		      </div>
+              <input type="submit" class="btn btn-primary col-1 btn-sm " value="Grabar"/> 
+		    </div>
+		    <div th:if="${#fields.hasGlobalErrors()}">
+		    	<p class="text-danger" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></p>
+		    </div>
+	      </form>
+	    </div>
+	  </fieldset>
+	</div>
+    <div th:fragment="cuenta">
+      <fieldset>
+        <legend>Nueva cuenta</legend>
+        <div class="container border border-dark rounded p-2 mb-5 bg-light">
+	     <form id="altaCuenta" method="POST" th:action="@{/grabarCuenta}" th:object="${cuenta}">
+            <div class="form-group row">
+              <div class="col-5">
+                <label class="col-form-label text-end">Código</label>
+		        <input type="text" id="codigo" class="form_control" th:field="*{codigo}" />
+		        <span class="validationError error text-danger d-block" th:if="${#fields.hasErrors('codigo')}" 
+					      th:errors="*{codigo}" >Codigo Error</span>
+		      </div>
+		      <div class="col-5">
+		        <label class="col-form-label text-end">Nombre</label>
+		        <input type="text" name="nombre" class="form_control me-5" th:field="*{nombre}" />
+		        <span class="validationError error text-danger d-block" th:if="${#fields.hasErrors('nombre')}" 
+				  	      th:errors="*{nombre}" >Error</span>
+		      </div>
+              <input type="submit" class="btn btn-primary col-1 btn-sm " value="Grabar"/> 
+		    </div>
+		    <div th:if="${#fields.hasGlobalErrors()}">
+		    	<p class="text-danger" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></p>
+		    </div>
+	      </form>
+	    </div>
+	  </fieldset>
+	</div>
+  </body>  
+</html>
