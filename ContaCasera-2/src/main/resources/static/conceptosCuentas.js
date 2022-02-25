@@ -26,13 +26,7 @@ async function altaForm(url){
 		elem.innerHTML = result;
 		document.querySelector("#codigo").focus();
 	  }
-/*
-function editarFila(obj){
-    var objSpan=$(obj).parent().parent().children('.editable').children('span');
-    $(objSpan).css('display','none')
-    $(obj).parent().parent().children('.editable').children('input').attr('type','text').val($(objSpan).text());
-}
-*/
+ 
 $(() => {
 	
 	$('button.eliminar')
