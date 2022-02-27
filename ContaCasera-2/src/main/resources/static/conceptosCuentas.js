@@ -40,7 +40,7 @@ $(() => {
 	
 	  
 	$('button.editar')
-	  .on('click', function(){
+	  .on('click', function(){ 
 		if ($(this).attr('alt') == 'Editar') {
 			editar($(this));
 		} else {
