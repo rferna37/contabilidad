@@ -14,7 +14,6 @@ document.body.addEventListener("submit",async function enviar(e) {
 	  document.querySelector('#formulario').innerHTML = result;
 	  document.querySelector("#codigo").focus();
     }
-    
 	
   });
 
