@@ -8,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import as.fleming.rodrigo.entidades.Apunte;
 import as.fleming.rodrigo.validadores.CuentasConstraint;
 import as.fleming.rodrigo.validadores.FechaConstraint;
@@ -30,6 +32,7 @@ public class Asiento {
 	@Pattern(regexp="^[0-9]+([,.][0-9]+)?$",
 			message="Formato incorrecto")
 	private String importe;
+	
 	
 	public Apunte toApunte(Apunte apunte) {
 		DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("d/M/yyyy");
