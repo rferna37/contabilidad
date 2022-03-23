@@ -20,7 +20,7 @@
 	  </h1>
 	</div>
 	<div class="container">
-	  <form method="POST" th:action="@{/grabar}" th:object="${asiento}">  
+	  <form method="POST" th:action="@{/grabar}" th:object="${asiento}" enctype="multipart/form-data">  
 		<input type="hidden" th:field="*{codigo}" />
 		<div class="form-group row">
 		  <label class="col-2 col-form-label">Fecha</label>
@@ -38,9 +38,7 @@
          	  <option value = ""> -- </option>
          	  <option th:each="concepto:${conceptos}" th:value="${concepto.codigo}" th:text="${concepto.descripcion}"></option>
 	  		</select>
-	  		<div class="validationError error mb-2" th:if="${#fields.hasErrors('concepto')}" 
-					      	th:errors="*{concepto}" >Error en concepto</div>
-		  </div>
+	  	  </div>
 	  	</div>
 	  	<div class="form-group row mt-2">
 	  	  <label class="col-2 col-form-label">Cuenta origen</label>
@@ -49,9 +47,6 @@
          	  <option value = ""> -- </option>
          	  <option th:each="cuenta:${cuentas}" th:value="${cuenta.codigo}" th:text="${cuenta.nombre}"></option>
 	  		</select>
-	  		<div class="validationError error mb-2" th:if="${#fields.hasErrors('origen')}" 
-					      	th:errors="*{origen}" >Error en cuenta</div>
-			<p class="error" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Cuentas iguales</p>
 	  	  </div>
 	  	</div>
 	  	<div class="form-group row mt-2">
@@ -61,8 +56,6 @@
          		<option value = ""> -- </option>
          		<option th:each="cuenta:${cuentas}" th:value="${cuenta.codigo}" th:text="${cuenta.nombre}"></option>
 	  		  </select>
-	  	      <div class="validationError error mb-2" th:if="${#fields.hasErrors('destino')}" 
-					     	 th:errors="*{destino}" >Error en cuenta</div>
 	  		</div>
 	  	 </div>
 	  	 <div class="form-group row mt-2">
@@ -73,11 +66,22 @@
 					     	 th:errors="*{importe}" >Error en importe</span>
 	  	   </div>
 	  	 </div>
+	  	 <div class="form-group row mt-2">
+	  	   <label class="col-sm-2 col-form-label">Documento</label></br>
+	  	   <div class="col-sm-10">
+	  	     <span id="info" th:text="(*{documento} != null) ? *{documento.getOriginalFilename()} : ''"></span>
+	  	     <label for="file-upload" class="subir text-light bg-secondary px-2 py-1 ms-2">Cargar</label>
+	  	     <input type="file" id="file-upload" name="documento" th:field="*{documento}" class="d-none">
+	  	   </div>
+	  	 </div>
 	  	 <a href="/apuntes" class="btn btn-outline-primary mt-3">Cancelar</a>
 	  	 <input type="submit" class="btn btn-outline-success mt-3" value="Grabar"/>	
 	  	 <button th:unless="${#strings.isEmpty(asiento.codigo)}"
 	  			 type="button"  id="eliminar" class="btn btn-outline-danger mt-3 float-end" data-bs-toggle="modal" 
 	  			 data-bs-target="#confirmarModal" th:attr="data-bs-apunte=${asiento.codigo}" >Eliminar</button>
+	     <div th:if="${#fields.hasGlobalErrors()}">
+		   <p class="text-danger" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></p>
+		 </div>
 	   </form>
 	 </div>
 	 <div th:insert="~{modal :: confirmacion('Va a eliminar el apunte de la base de datos')}"></div>
@@ -88,5 +92,7 @@
      <script th:src="@{datePicker/locales/bootstrap-datepicker.es.min.js}"></script>
      <script th:src="@{calendario.js}"></script>   
      <script th:src="@{eliminarApunte.js}"></script>  <!-- Indica el fichero que contiene la función eliminar invocada al hacer clic en el botón correspondiente -->
+     <script th:src="@{cargarDocumento.js}"></script>
+     <script th:src="@{anularPaginaAtras.js}" ></script>     
   </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="ISO-8859-1">
+    <title>Documento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+  	<link rel="stylesheet" th:href="@{/css/documento.css}"/> 
+  	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+  			crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <div class="container w-75">
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a id="volver" href="#" class="btn btn-danger my-3" >Volver</a>
+        </li>
+      </ul>
+    </div>
+    <div class="container border border-primary w-75">
+	  <object th:attr="data='/documento/'+${fichero}" class="w-100 vh-100" ></object>
+	</div>
+	<script th:src="@{/cerrarDocumento.js}"></script>
+  </body>
+</html>

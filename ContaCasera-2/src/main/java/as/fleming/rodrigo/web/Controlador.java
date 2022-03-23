@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import as.fleming.rodrigo.entidades.Apunte;
 import as.fleming.rodrigo.entidades.Concepto;
 import as.fleming.rodrigo.entidades.Cuenta;
+import as.fleming.rodrigo.excepciones.GrabarFicheroException;
 import as.fleming.rodrigo.auxform.Filtro;
 import as.fleming.rodrigo.auxform.Asiento;
 import as.fleming.rodrigo.servicios.DAOService;
@@ -72,8 +73,9 @@ public class Controlador {
 	
 	@GetMapping(path="/editar")
 	public String leerApunte(@RequestParam String codApunte, Model modelo) {
-		Apunte apunte = servicio.leerApunte(codApunte);
-		modelo.addAttribute("asiento", apunte.toAsiento(new Asiento()));
+		Apunte apunte = servicio.leerApunte(codApunte); 
+		Asiento ast = apunte.toAsiento(new Asiento());
+		modelo.addAttribute("asiento", ast);
 		modelo.addAttribute("conceptos", servicio.leerConceptos());
 		modelo.addAttribute("cuentas", servicio.leerCuentas());
 		return "editarApunte";
@@ -86,7 +88,7 @@ public class Controlador {
 		if(errores.hasErrors()) {
 			modelo.addAttribute("conceptos", servicio.leerConceptos());
 			modelo.addAttribute("cuentas", servicio.leerCuentas());
-			salida = "altas";
+			salida = "editarApunte";
 		} else {
 			if(asiento.getCodigo().equals("")) { //Apunte nuevo
 				apunte = new Apunte();
@@ -95,7 +97,14 @@ public class Controlador {
 				apunte = servicio.leerApunte(asiento.getCodigo());
 				salida = "redirect:/apuntes";
 			}
-			servicio.grabar(asiento.toApunte(apunte));	
+			try {
+				servicio.grabar(asiento.toApunte(apunte));
+			} catch (GrabarFicheroException e) {
+				errores.reject("998", e.getMensaje());
+				modelo.addAttribute("conceptos", servicio.leerConceptos());
+				modelo.addAttribute("cuentas", servicio.leerCuentas());
+				salida = "editarApunte";
+			}
 		}
 		return salida;
 	}
@@ -107,7 +116,13 @@ public class Controlador {
 		} else {
 			modelo.addAttribute("cuenta", new Cuenta());
 		}
-		
 		return "altaConceptoCuenta :: " + nomFragmento;
 	}
+ 
+	@RequestMapping("/verDocu/{fichero}")
+	public String verDocumento(@PathVariable("fichero") String nombre, Model modelo) {
+		modelo.addAttribute("fichero", nombre);
+		return "mostrarDocumento";
+	}
+	
 }

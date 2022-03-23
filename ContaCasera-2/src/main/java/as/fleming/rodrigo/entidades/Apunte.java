@@ -13,22 +13,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import as.fleming.rodrigo.auxform.Asiento;
+
 import lombok.Data;
-
-
 
 @Entity
 @Table(name="apuntes")
 @Data  //Anotación Lombok que genera automáticamente el constructor, getters, setters, etc.
 public class Apunte {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String codigo;
 	private LocalDate fecha;
 	private BigDecimal importe;
-	private String documento;
+	private String extension;
+	
+	@Transient
+	private MultipartFile documento;
 	
 	@Column(name="concepto" )
 	private String codConcepto;
@@ -59,6 +65,15 @@ public class Apunte {
 		asiento.setDestino(codDestino);
 		DecimalFormat df = new DecimalFormat("###,###.00");
         asiento.setImporte(df.format(importe));
+        asiento.setDocumento(documento);
 		return asiento;
+	}
+	
+	public String getNombreDocumento() {
+		String nombre = "";
+		if (extension != null) {
+			nombre = "doc" + codigo +"." + extension;
+		}
+		return nombre;
 	}
 }

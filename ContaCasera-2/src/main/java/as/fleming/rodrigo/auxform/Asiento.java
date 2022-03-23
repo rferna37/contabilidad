@@ -29,18 +29,32 @@ public class Asiento {
 	String destino;
 	
 	@NotNull(message="Campo obligatorio")
-	@Pattern(regexp="^[0-9]+([,.][0-9]+)?$",
+	@Pattern(regexp="^([-+]?[0-9]{1,3}(.[0-9]{3})?(,[0-9]+)?)$",
 			message="Formato incorrecto")
 	private String importe;
 	
+	private MultipartFile documento;
 	
 	public Apunte toApunte(Apunte apunte) {
 		DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("d/M/yyyy");
+		apunte.setCodigo(codigo);
 		apunte.setFecha(LocalDate.parse(fecha, formatoFecha));
 		apunte.setCodConcepto(concepto);
 		apunte.setCodOrigen(origen);
 		apunte.setCodDestino(destino);
-		apunte.setImporte(new BigDecimal(importe.replace(',','.')));
+		apunte.setImporte(new BigDecimal(importe.replace(".","").replace(',','.')));
+		if (documento != null && !documento.isEmpty()) {
+			apunte.setDocumento(documento);
+			apunte.setExtension(getExtension());
+		}
 		return apunte;
+	}
+	
+	public String getExtension() {
+		if (documento != null) {
+			String nombre = documento.getOriginalFilename();
+			return nombre.substring(nombre.lastIndexOf('.') + 1);
+		}
+		return "";
 	}
 }

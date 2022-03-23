@@ -1,10 +1,14 @@
 package as.fleming.rodrigo.web;
 
+import java.net.URLConnection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,5 +84,15 @@ public class ControladorRest {
 		servicio.grabarCuenta(cuenta);
 		return "Fin operación";
 	}
+	
+	@GetMapping("/documento/{filename:.+}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        Resource file = servicio.loadDocumento(filename);
+        String mimeType = URLConnection.guessContentTypeFromName(file.getFilename());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFilename() + "\"")
+                .header(HttpHeaders.CONTENT_TYPE, mimeType)
+                .body(file);
+    }
 	
 }

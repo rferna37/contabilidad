@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CuentasConstraint {
-	String message() default "Origen y destino iguales";
+	String message() default "Cuentas origen y destino iguales";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
