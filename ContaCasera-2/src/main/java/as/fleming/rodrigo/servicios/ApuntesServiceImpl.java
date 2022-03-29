@@ -67,6 +67,15 @@ public class ApuntesServiceImpl implements DAOService {
 		repositorio.deleteById(id);
 		eliminarDocumento("doc" + id);
 	}
+	
+	@Override
+	public void eliminarDocu(String doc) {
+		String codApunte = doc.substring(3, doc.lastIndexOf('.'));
+		Apunte a = repositorio.findByCodigo(codApunte);
+		eliminarDocumento("doc" + codApunte);
+		a.setExtension(null);
+		repositorio.save(a);
+	}
 
 	@Override
 	public Apunte leerApunte(String id) {

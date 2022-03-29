@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="utf-8">
     <title>Documento</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
@@ -14,13 +14,21 @@
     <div class="container w-75">
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <a id="volver" href="#" class="btn btn-danger my-3" >Volver</a>
+          <a id="volver" href="#" class="btn btn-success m-3" >Volver</a>
+        </li>
+        <li class="nav-item">
+          <button id="eliminar" type="button" class="btn btn-danger m-3" data-bs-toggle="modal" 
+             data-bs-target="#confirmarModal" th:attr="data-bs-documento=${fichero}" >Eliminar</button>
         </li>
       </ul>
     </div>
     <div class="container border border-primary w-75">
-	  <object th:attr="data='/documento/'+${fichero}" class="w-100 vh-100" ></object>
+	  <object th:attr="data='/documento/' + ${fichero}" class="w-100 vh-100" ></object>
 	</div>
+	<div th:insert="~{modal :: confirmacion('Va a eliminar el documento de la aplicación')}"></div>
+	<div th:insert="~{modal :: alerta}"></div>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script> 
 	<script th:src="@{/cerrarDocumento.js}"></script>
+	<script th:src="@{/eliminarDocumento.js}"></script>
   </body>
 </html>

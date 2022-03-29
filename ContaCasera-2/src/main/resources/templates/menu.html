@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
-    <div th:fragment="menu">
-      <div class="container border ">
-    	<nav class="nav">
-  			<a class="nav-link active" aria-current="page" th:href="@{/apuntes}">Apuntes</a>
-  			<a class="nav-link" th:href="@{/conceptos}">Conceptos</a>
-  			<a class="nav-link" th:href="@{/cuentas}">Cuentas</a>
-		</nav>
-      </div>
-    </div>  
+  <div th:fragment="menu">
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3">
+        <a th:href="@{/apuntes}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <img th:src="@{/imagenes/conta.jpg}" width="50" height="50" class="me-4"/>
+          <span class="fs-4">Contabilidad casera</span>
+        </a>
+
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a th:href="@{/apuntes}" class="nav-link" aria-current="page">Apuntes</a></li>
+          <li class="nav-item"><a th:href="@{/conceptos}" class="nav-link">Conceptos</a></li>
+          <li class="nav-item"><a th:href="@{/cuentas}" class="nav-link">Cuentas</a></li>
+        </ul>
+      </header>
+    </div>
+  </div>
   </body>  
 </html>

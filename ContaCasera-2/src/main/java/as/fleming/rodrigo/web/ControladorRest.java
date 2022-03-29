@@ -33,6 +33,12 @@ public class ControladorRest {
 		return "Fin operación";	
 	}
 	
+	@GetMapping(path="/eliminarDocu/{codDocumento}")
+	public String eliminarDocumento(@PathVariable("codDocumento") String documento) {
+		servicio.eliminarDocu(documento);
+		return "Fin operación";	
+	}
+	
 	@GetMapping("/eliminarConcepto/{codConcepto}")
     public String eliminarConcepto(@PathVariable("codConcepto") String concepto) {
     	try {

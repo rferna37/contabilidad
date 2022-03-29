@@ -13,6 +13,7 @@ import as.fleming.rodrigo.excepciones.GrabarFicheroException;
 public interface DAOService {
 	public Apunte grabar(Apunte apunte) throws GrabarFicheroException;
 	public void eliminar(String id);
+	public void eliminarDocu(String id);
 	public Apunte leerApunte(String id);
 	public List<Apunte> leerApuntesPorFecha(LocalDate fDesde, LocalDate fHasta);
 	public List<Apunte> leerApuntesFiltro(String origen,
